@@ -16,12 +16,14 @@
                 height: 360
             });
 
+            // Sets scale mode to nearest
             PIXI.BaseTexture.defaultOptions.scaleMode = 0;
 
             // Add the PIXI canvas to the HTML body
             document.body.appendChild(app.view);
             
-            const background = PIXI.Sprite.from('/images/game_background.png');
+            // Write game background to screen
+            const background = PIXI.Sprite.from('images/game_background.png');
             background.scale.set(2,2);
             app.stage.addChild(background);
 
