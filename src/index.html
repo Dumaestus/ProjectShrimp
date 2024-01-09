@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://pixijs.download/release/pixi.min.js"></script>
+        <link rel="stylesheet" href="styles.css">
 
         <title>Project Shrimp</title>
     </head>
@@ -11,14 +12,21 @@
         <script>
             // Create PIXI Application
             const app = new PIXI.Application({
-                width: 1024,
-                height: 576
+                width: 640,
+                height: 360
             });
+
+            PIXI.BaseTexture.defaultOptions.scaleMode = 0;
 
             // Add the PIXI canvas to the HTML body
             document.body.appendChild(app.view);
+            
+            const background = PIXI.Sprite.from('/images/game_background.png');
+            background.scale.set(2,2);
+            app.stage.addChild(background);
 
             // Load a sprite image by assigning 'PLAYER' to its resource (png)
+            /*
             app.loader.add('PLAYER', 'images/testCharacter.png').load((loader, resources) => {
                 const PLAYER = new PIXI.Sprite(resources.PLAYER.texture);
 
@@ -27,7 +35,9 @@
                 PLAYER.y = app.renderer.height / 2;
 
                 app.stage.addChild(PLAYER);
-            });
+            }); */
+
+
         </script>
     </body>
 </html>
