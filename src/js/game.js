@@ -1,5 +1,7 @@
 // Game code
 
+// import { AnimatedSprite, Texture } from '/js/test.pixi.min.js';
+
 // --- Variables ---
 const screenWidth = 320;
 const screenHeight = 180;
@@ -132,8 +134,8 @@ function UpdateGameplay(delta) {
     player.y += playerVelocity.y * playerSpeed * delta;
     //updatePlayerMovement();
 
-    
 }
+
 
 function createPlatform() { // Creates stage that player can step on
     // 144 pixels from the top of the background is the line
@@ -262,10 +264,11 @@ function SetupGameplay() {
     
     // Initialize player
      // TODO: Animate player
+    
     player = PIXI.Sprite.from('images/player/player_right1.png');
     player.x = app.screen.width / 2;
     player.y = app.screen.height / 2;
-    
+
     app.stage.addChild(player);
 
 }
