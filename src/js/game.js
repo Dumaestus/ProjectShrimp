@@ -120,6 +120,7 @@ function Update(delta) {
 function StartGame() {
     if (currentState != STATE.GAMEPLAY) {
         app.stage.removeChild(titleScreen);
+        //createPlatform();
         ChangeState(STATE.GAMEPLAY);
     }
 }
@@ -140,38 +141,42 @@ function UpdateGameplay(delta) {
     player.y += playerVelocity.y * playerSpeed * delta;
     //updatePlayerMovement();
 
+    
 }
 
-function createStage() { // Creates stage that player can step on
-    // Eventually make it so that it 
+function createPlatform() { // Creates stage that player can step on
+    // 144 pixels from the top of the background is the line
+    // Either create a sprite that can be manipulated to become the stage platform as seen in this collision test: https://pixijs.com/playground
+    // or create a graphic that we might also be able to manipulate and do the same thing
+    // If all else fails, just set a specific height to be the boundary box for the floor
 }
 
 // --- Player Key Presses ---
 
-function handleKeys() {
+function handleKeys(event) {
     {
         if (event.defaultPrevented) {
           return; // Do nothing if event already handled
         }
     
         switch (event.code) {
+          // Jump
           case "KeySpace":
           case "Space":
-            // Handle "jump"
-
             StartGame();
-            //updatePosition(moveRate);
             jump();
             break;
+
+          // Move Left
           case "KeyA":
           case "ArrowLeft":
-            // Move Left
             console.log('a');
             moveLeft();
             break;
+
+          // Move Right
           case "KeyD":
           case "ArrowRight":
-            // Move Right
             moveRight();
             break;
           }
@@ -196,11 +201,10 @@ function moveLeft() {
 
 function moveRight() {
     playerVelocity.x = 1;
-
 }
 
 function jump() {
-    
+    // PSEUDO CODE: If the jump button is pressed and the player is on the floor, add jumpVelocity to the playerVelocity.y
 }
 
 function UpdateDeath(delta) {
