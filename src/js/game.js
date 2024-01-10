@@ -23,6 +23,7 @@ var input;
 
 let playerVelocity = { x: 0, y: 0 };
 const playerSpeed = 5;
+const deceleration = 0.1; 
 
 // --- Begin game ---
 Init()
@@ -49,9 +50,9 @@ function Init() {
             case "Space":
               // Handle "jump"
 
-
               StartGame();
               //updatePosition(moveRate);
+              jump();
               break;
             case "KeyA":
             case "ArrowLeft":
@@ -158,36 +159,35 @@ function UpdateTitle(delta) {
 
 function UpdateGameplay(delta) {
     // Write gameplay code here
-    //updatePlayerMovement();
     player.x += playerVelocity.x * playerSpeed * delta;
     player.y += playerVelocity.y * playerSpeed * delta;
+    //updatePlayerMovement();
+
+}
+
+function updatePlayerMovement() {
+    // Decelerate the player when no keys are pressed
+    if (!app.keyboardManager.isKeyDown(PIXI.KeyboardManager.KEYS.LEFT) && !app.keyboardManager.isKeyDown(PIXI.KeyboardManager.KEYS.RIGHT)) {
+        playerVelocity.x *= 1 - deceleration;
+        if (Math.abs(playerVelocity.x) < 0.01) {
+            playerVelocity.x = 0; // Stop completely when velocity becomes very small
+        }
+    }
 }
 
 function moveLeft() {
     playerVelocity.x = -1;
+    player = Sprite.scale.x = -1;
 }
 
 function moveRight() {
     playerVelocity.x = 1;
+
 }
 
 function jump() {
     
 }
-
-// function updatePlayerMovement() {
-//     playerVelocity.x = 0;
-//     playerVelocity.y = 0;
-
-//     if (app.keyboardManager.isKeyDown(PIXI.keyboardManager.KEYS.LEFT)) {
-//         playerVelocity.x = -1;
-//     }
-//     if (app.keyboardManager.isKeyDown(PIXI.keyboardManager.KEYS.RIGHT)) {
-//         playerVelocity.x = 1;
-//     }
-    
-// }
-
 
 function UpdateDeath(delta) {
     // Write death screen code here
