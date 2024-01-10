@@ -59,6 +59,7 @@ function GameLoop() {
         //console.log(elapsed)
         
         switch(canRun) {
+           
             case true:
                 Update();
                 //Draw();
@@ -75,14 +76,15 @@ function GameLoop() {
 // Runs every frame
 function Update() {
     switch(currentState) {
+        
         case STATE.TITLE:
-            Title();
+            UpdateTitle();
 
         case STATE.GAMEPLAY:
-            Gameplay();
+            UpdateGameplay();
                 
         case STATE.DEATH:
-            Death();
+            UpdateDeath();
                 
     }
 }
@@ -93,22 +95,46 @@ function Update() {
 
 // }
 
-function Title() {
+function UpdateTitle() {
     // Write title screen code here
 
 }
 
-function Gameplay() {
+function UpdateGameplay() {
     // Write gameplay code here
 
 }
 
-function Death() {
+function UpdateDeath() {
     // Write death screen code here
 
 
 }
 
+function ChangeState(newState) {
+    canRun = false;
+    currentState = newState;
+
+    canRun = Setup(currentState);
+}
+
+function Setup(currentState) {
+    switch(currentState) {
+        
+        case STATE.TITLE:
+            break;
+
+        case STATE.GAMEPLAY: {
+            break;
+        }
+
+        case STATE.DEATH: {
+            break;
+
+        }
+    }
+    return true;
+}
 
 // Reset the game
 function Reset() {
