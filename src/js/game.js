@@ -1,11 +1,12 @@
 // Create PIXI Application
 const app = new PIXI.Application({
-    width: 640,
-    height: 360
+    width: 320,
+    height: 180
 });
 
 // Sets scale mode to nearest
 PIXI.BaseTexture.defaultOptions.scaleMode = 0;
+PIXI.BaseTexture.defaultOptions.mipmap = 2;
 
 // Add the PIXI canvas to the HTML body
 document.body.appendChild(app.view)
