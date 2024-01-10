@@ -57,21 +57,35 @@ function GameLoop() {
     app.ticker.add((delta) => {
         elapsed += delta;
         //console.log(elapsed)
+        
         switch(canRun) {
             case true:
                 Update()
                 Draw()
+            
+            case false:
+                break;
+
         }
+        //console.log(elapsed + ": canRun: " + canRun)
     });
 }
 
+// Put game logic here
 function Update() {
 
 
 
 }
 
+// Put graphics updates here
 function Draw() {
+
+
+}
+
+// Reset the game
+function Reset() {
 
 
 }
