@@ -142,8 +142,10 @@ function Update(delta) {
 // }
 
 function StartGame() {
-    app.stage.removeChild(titleScreen);
-    ChangeState(STATE.GAMEPLAY);
+    if (currentState != STATE.GAMEPLAY) {
+        app.stage.removeChild(titleScreen);
+        ChangeState(STATE.GAMEPLAY);
+    }
 }
 
 function UpdateTitle(delta) {
