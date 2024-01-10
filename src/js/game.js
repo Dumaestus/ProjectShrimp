@@ -21,6 +21,8 @@ var titleScreen;
 
 var input;
 
+let playerVelocity = { x: 0, y: 0 };
+const playerSpeed = 5;
 
 // --- Begin game ---
 Init()
@@ -34,7 +36,44 @@ function Init() {
         width: screenWidth,
         height: screenHeight
     });
+    
+    window.addEventListener(
+        "keydown",
+        (event) => {
+          if (event.defaultPrevented) {
+            return; // Do nothing if event already handled
+          }
+      
+          switch (event.code) {
+            case "KeySpace":
+            case "Space":
+              // Handle "forward"
+              updatePosition(moveRate);
+              break;
+            case "KeyA":
+            case "ArrowLeft":
+              // Handle "turn left"
+              console.log('a');
+              angle -= turnRate;
+              break;
+            case "KeyD":
+            case "ArrowRight":
+              // Handle "turn right"
+              angle += turnRate;
+              break;
+            }
 
+            refresh();
+        
+            if (event.code !== "Tab") {
+              // Consume the event so it doesn't get handled twice,
+              // as long as the user isn't trying to move focus away
+              event.preventDefault();
+            }
+          },
+          true,
+        );
+        
     // Sets scale mode to nearest
     PIXI.BaseTexture.defaultOptions.scaleMode = 0;
     //PIXI.BaseTexture.defaultOptions.mipmap = 2;
@@ -118,8 +157,36 @@ function UpdateTitle() {
 
 function UpdateGameplay() {
     // Write gameplay code here
-
+    updatePlayerMovement();
+    player.x += playerVelocity.x * playerSpeed * delta;
+    player.y += playerVelocity.y * playerSpeed * delta;
 }
+
+function moveLeft() {
+    playerVelocity.x = -1;
+}
+
+function moveRight() {
+    playerVelocity.x = 1;
+}
+
+function jump() {
+    
+}
+
+// function updatePlayerMovement() {
+//     playerVelocity.x = 0;
+//     playerVelocity.y = 0;
+
+//     if (app.keyboardManager.isKeyDown(PIXI.keyboardManager.KEYS.LEFT)) {
+//         playerVelocity.x = -1;
+//     }
+//     if (app.keyboardManager.isKeyDown(PIXI.keyboardManager.KEYS.RIGHT)) {
+//         playerVelocity.x = 1;
+//     }
+    
+// }
+
 
 function UpdateDeath() {
     // Write death screen code here
