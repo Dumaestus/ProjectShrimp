@@ -83,6 +83,7 @@ function Init() {
 
     canRun = Setup(currentState);
     //canRun = Setup(STATE.GAMEPLAY); // For testing; uncomment the above for real
+    
 }
 
 function GameLoop() {
