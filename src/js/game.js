@@ -122,11 +122,8 @@ function StartGame() {
 function UpdateTitle(delta) {
     // Write title screen code here
 
-
-    // Should switch to GAMEPLAY
-    //test
-    //Object.onkeydown = ChangeState(STATE.GAMEPLAY);
-    
+    // Event listener handles title screen input,
+    // so this function is just here for posterity.
 }
 
 function UpdateGameplay(delta) {
@@ -155,24 +152,24 @@ function handleKeys(event) {
     
         switch (event.code) {
           // Jump
-          case "KeySpace":
-          case "Space":
-            StartGame();
-            jump();
-            break;
+            case "KeySpace":
+            case "Space":
+                StartGame();
+                jump();
+                break;
 
           // Move Left
-          case "KeyA":
-          case "ArrowLeft":
-            console.log('a');
-            moveLeft();
-            break;
+            case "KeyA":
+            case "ArrowLeft":
+                console.log('a');
+                moveLeft();
+                break;
 
           // Move Right
-          case "KeyD":
-          case "ArrowRight":
-            moveRight();
-            break;
+            case "KeyD":
+            case "ArrowRight":
+                moveRight();
+                break;
           }
     }
 }
