@@ -89,7 +89,7 @@ function GameLoop() {
         switch(canRun) {
            
             case true:
-                Update();
+                Update(delta);
                 //Draw();
                 break;
             
@@ -110,19 +110,19 @@ function GameLoop() {
 
 // Put game logic here
 // Runs every frame
-function Update() {
+function Update(delta) {
     switch(currentState) {
         case STATE.TITLE:
             //console.log("case STATE.TITLE");
-            UpdateTitle();
+            UpdateTitle(delta);
             break;
 
         case STATE.GAMEPLAY:
-            UpdateGameplay();
+            UpdateGameplay(delta);
             break;
                 
         case STATE.DEATH:
-            UpdateDeath();
+            UpdateDeath(delta);
             break;
         
         default:
@@ -142,23 +142,23 @@ function Update() {
 // }
 
 function StartGame() {
-    titleScreen.destroy;
+    titleScreen.destroy(true);
     ChangeState(STATE.GAMEPLAY);
 }
 
-function UpdateTitle() {
+function UpdateTitle(delta) {
     // Write title screen code here
 
 
     // Should switch to GAMEPLAY
     //test
     //Object.onkeydown = ChangeState(STATE.GAMEPLAY);
-    if 
+    
 }
 
-function UpdateGameplay() {
+function UpdateGameplay(delta) {
     // Write gameplay code here
-    updatePlayerMovement();
+    //updatePlayerMovement();
     player.x += playerVelocity.x * playerSpeed * delta;
     player.y += playerVelocity.y * playerSpeed * delta;
 }
@@ -189,7 +189,7 @@ function jump() {
 // }
 
 
-function UpdateDeath() {
+function UpdateDeath(delta) {
     // Write death screen code here
 
 
