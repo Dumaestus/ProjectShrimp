@@ -142,9 +142,12 @@ function Update(delta) {
 
 // }
 
+// Hacky way of starting the game
 function StartGame() {
-    titleScreen.destroy(true);
-    ChangeState(STATE.GAMEPLAY);
+    if (currentState != STATE.GAMEPLAY) {
+        app.stage.removeChild(titleScreen);
+        ChangeState(STATE.GAMEPLAY);
+    }
 }
 
 function UpdateTitle(delta) {
