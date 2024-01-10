@@ -47,28 +47,20 @@ function Init() {
           switch (event.code) {
             case "KeySpace":
             case "Space":
-              // Handle "forward"
-              updatePosition(moveRate);
+              // Jump
+              jump();
               break;
             case "KeyA":
             case "ArrowLeft":
-              // Handle "turn left"
+              // Move Left
               console.log('a');
-              angle -= turnRate;
+              moveLeft();
               break;
             case "KeyD":
             case "ArrowRight":
-              // Handle "turn right"
-              angle += turnRate;
+              // Move Right
+              moveRight();
               break;
-            }
-
-            refresh();
-        
-            if (event.code !== "Tab") {
-              // Consume the event so it doesn't get handled twice,
-              // as long as the user isn't trying to move focus away
-              event.preventDefault();
             }
           },
           true,
@@ -153,7 +145,7 @@ function UpdateTitle() {
     // Should switch to GAMEPLAY
     //test
     //Object.onkeydown = ChangeState(STATE.GAMEPLAY);
-
+    if 
 }
 
 function UpdateGameplay() {
