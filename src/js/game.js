@@ -115,12 +115,6 @@ function Update(delta) {
     //console.log("test");
 }
 
-// Put graphics updates here
-// function Draw() {
-//     // TK: Not sure if we need this function, since sprites ARE the objects
-
-// }
-
 // Hacky way of starting the game
 function StartGame() {
     if (currentState != STATE.GAMEPLAY) {
@@ -133,11 +127,8 @@ function StartGame() {
 function UpdateTitle(delta) {
     // Write title screen code here
 
-
-    // Should switch to GAMEPLAY
-    //test
-    //Object.onkeydown = ChangeState(STATE.GAMEPLAY);
-    
+    // Event listener handles title screen input,
+    // so this function is just here for posterity.
 }
 
 // --- Gameplay Code IMPORTANT ---
@@ -156,24 +147,24 @@ function handleKeys(event) {
     
         switch (event.code) {
           // Jump
-          case "KeySpace":
-          case "Space":
-            StartGame();
-            jump();
-            break;
+            case "KeySpace":
+            case "Space":
+                StartGame();
+                jump();
+                break;
 
           // Move Left
-          case "KeyA":
-          case "ArrowLeft":
-            console.log('a');
-            moveLeft();
-            break;
+            case "KeyA":
+            case "ArrowLeft":
+                console.log('a');
+                moveLeft();
+                break;
 
           // Move Right
-          case "KeyD":
-          case "ArrowRight":
-            moveRight();
-            break;
+            case "KeyD":
+            case "ArrowRight":
+                moveRight();
+                break;
           }
     }
 }
