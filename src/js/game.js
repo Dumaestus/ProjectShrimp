@@ -47,8 +47,11 @@ function Init() {
           switch (event.code) {
             case "KeySpace":
             case "Space":
-              // Jump
-              jump();
+              // Handle "jump"
+
+
+              StartGame();
+              //updatePosition(moveRate);
               break;
             case "KeyA":
             case "ArrowLeft":
@@ -137,6 +140,11 @@ function Update() {
 //     // TK: Not sure if we need this function, since sprites ARE the objects
 
 // }
+
+function StartGame() {
+    titleScreen.destroy;
+    ChangeState(STATE.GAMEPLAY);
+}
 
 function UpdateTitle() {
     // Write title screen code here
