@@ -142,7 +142,7 @@ function Update(delta) {
 // }
 
 function StartGame() {
-    titleScreen.destroy(true);
+    app.stage.removeChild(titleScreen);
     ChangeState(STATE.GAMEPLAY);
 }
 
