@@ -111,6 +111,7 @@ function UpdateTitle() {
 
 
     // Should switch to GAMEPLAY
+    //test
     //Object.onkeydown = ChangeState(STATE.GAMEPLAY);
 
 }
@@ -187,7 +188,7 @@ function SetupGameplay() {
 }
 
 function SetupDeath() {
-    
+
 
 }
 
