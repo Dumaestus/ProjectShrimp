@@ -141,6 +141,7 @@ function Update(delta) {
 
 // }
 
+// Hacky way of starting the game
 function StartGame() {
     if (currentState != STATE.GAMEPLAY) {
         app.stage.removeChild(titleScreen);
