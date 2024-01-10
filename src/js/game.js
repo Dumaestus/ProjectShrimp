@@ -110,12 +110,6 @@ function Update(delta) {
     //console.log("test");
 }
 
-// Put graphics updates here
-// function Draw() {
-//     // TK: Not sure if we need this function, since sprites ARE the objects
-
-// }
-
 // Hacky way of starting the game
 function StartGame() {
     if (currentState != STATE.GAMEPLAY) {
