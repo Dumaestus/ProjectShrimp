@@ -180,7 +180,6 @@ function updatePlayerMovement() {
 
 function moveLeft() {
     playerVelocity.x = -1;
-    player = Sprite.scale.x = -1;
 }
 
 function moveRight() {
