@@ -4,7 +4,7 @@
 const screenWidth = 320;
 const screenHeight = 180;
 
-var canRun = false;
+var isRunning = false;
 var elapsed = 0.0;
 
 const STATE = {
@@ -51,8 +51,8 @@ function Init() {
     // Add the PIXI canvas to the HTML body
     document.body.appendChild(app.view);
 
-    canRun = Setup(currentState);
-    //canRun = Setup(STATE.GAMEPLAY); // For testing; uncomment the above for real
+    isRunning = Setup(currentState);
+    //isRunning = Setup(STATE.GAMEPLAY); // For testing; uncomment the above for real
     
 }
 
@@ -61,7 +61,7 @@ function GameLoop() {
         elapsed += delta;
         //console.log(elapsed)
         
-        switch(canRun) {
+        switch(isRunning) {
            
             case true:
                 Update(delta);
@@ -75,11 +75,11 @@ function GameLoop() {
             default:
                 console.log(elapsed + ": GameLoop() out of bounds.");
                 console.log(elapsed + ": currentState: " + currentState);
-                canRun = false;
+                isRunning = false;
                 break;
 
         }
-        //console.log(elapsed + ": canRun: " + canRun)
+        //console.log(elapsed + ": isRunning: " + isRunning)
     });
 }
 
@@ -104,7 +104,7 @@ function Update(delta) {
             console.log("test")
             console.log(elapsed + ": Update() out of bounds.");
             console.log(elapsed + ": currentState: " + currentState);
-            canRun = false;
+            isRunning = false;
             break;
     }
     //console.log("test");
@@ -210,10 +210,10 @@ function UpdateDeath(delta) {
 }
 
 function ChangeState(newState) {
-    canRun = false;
+    isRunning = false;
     currentState = newState;
 
-    canRun = Setup(currentState);
+    isRunning = Setup(currentState);
 }
 
 function Setup(currentState) {
@@ -243,7 +243,7 @@ function Setup(currentState) {
         default:
             console.log(elapsed + ": Setup() out of bounds.");
             console.log(elapsed + ": currentState: " + currentState);
-            canRun = false;
+            isRunning = false;
             break;
     }
     return true;
