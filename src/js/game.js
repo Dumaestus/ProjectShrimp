@@ -20,15 +20,17 @@ var app;
 var player;
 var background;
 var titleScreen;
+var platform;
 
 var input;
 
 // --- Player Movement Vector Variables ---
 let playerVelocity = { x: 0, y: 0 };
-const playerSpeed = 5;
-const deceleration = 0.1; 
-const jumpVelocity = 30;
-const gravity = -10;
+const playerSpeed = 5; // Player's speed when they move left or right
+const deceleration = 0.1; // Deceleration that is enacted upon a player when moving left or right
+const jumpVelocity = 30; // How high a player jumps
+const gravity = 2; // Gravity num
+var fallCount = 0; // Time for how long an object is falling
 
 // --- Begin game ---
 Init()
@@ -58,6 +60,8 @@ function Init() {
     
 }
 
+// --- Game Loop ---
+
 function GameLoop() {
     app.ticker.add((delta) => {
         elapsed += delta;
@@ -85,7 +89,8 @@ function GameLoop() {
     });
 }
 
-// Put game logic here
+// --- Game Logic ---
+
 // Runs every frame
 function Update(delta) {
     switch(currentState) {
@@ -128,20 +133,10 @@ function UpdateTitle(delta) {
     // so this function is just here for posterity.
 }
 
+// --- Gameplay Code IMPORTANT ---
+
 function UpdateGameplay(delta) {
-    // Write gameplay code here
-    player.x += playerVelocity.x * playerSpeed * delta;
-    player.y += playerVelocity.y * playerSpeed * delta;
-    //updatePlayerMovement();
-
-}
-
-
-function createPlatform() { // Creates stage that player can step on
-    // 144 pixels from the top of the background is the line
-    // Either create a sprite that can be manipulated to become the stage platform as seen in this collision test: https://pixijs.com/playground
-    // or create a graphic that we might also be able to manipulate and do the same thing
-    // If all else fails, just set a specific height to be the boundary box for the floor
+    updatePlayerMovement(delta); // Movement additions to x and y velocity
 }
 
 // --- Player Key Presses ---
@@ -178,14 +173,12 @@ function handleKeys(event) {
 
 // --- Player Movement Stuff ---
 
-function updatePlayerMovement() {
-    // Decelerate the player when no keys are pressed
-    if (!app.keyboardManager.isKeyDown(PIXI.KeyboardManager.KEYS.LEFT) && !app.keyboardManager.isKeyDown(PIXI.KeyboardManager.KEYS.RIGHT)) {
-        playerVelocity.x *= 1 - deceleration;
-        if (Math.abs(playerVelocity.x) < 0.01) {
-            playerVelocity.x = 0; // Stop completely when velocity becomes very small
-        }
-    }
+function updatePlayerMovement(delta) {
+    // Player movement from right to left.
+    player.x += playerVelocity.x * playerSpeed * delta;
+
+    doGravity(delta);
+
 }
 
 function moveLeft() {
@@ -197,18 +190,55 @@ function moveRight() {
 }
 
 function jump() {
-    // PSEUDO CODE: If the jump button is pressed and the player is on the floor, add jumpVelocity to the playerVelocity.y
+    // PSEUDO CODE: If the jump button is pressed and the player is on the platform, add jumpVelocity to the playerVelocity.y
 }
 
-function isOnFloor(player, platform) {
+function isOnPlatform(player, platform) { // Returns true if player is on top.
     // PSEUDO CODE: If the player y-axis + the height is greater than or equal to the platform y-axis AND the player y-axis is less than or equal to the platform y-axis + platform height, then return true
+    if (player.y >= platform.y) {
+        return true;
+    }
+    else {
+        return false;
+    }
 }
+
+function doGravity(delta) {
+    player.y += gravity;
+}
+
+// function getFallCount(delta) {
+//     if isOnPlatform(player, platform) == true {
+//         return 0;
+//     }
+// }
 
 function UpdateDeath(delta) {
     // Write death screen code here
 
 
 }
+
+// --- Objects ---
+
+function createPlatform() { // Creates stage that player can step on
+    // 144 pixels from the top of the background is the line
+    // Either create a sprite that can be manipulated to become the stage platform as seen in this collision test: https://pixijs.com/playground
+    // or create a graphic that we might also be able to manipulate and do the same thing
+    // If all else fails, just set a specific height to be the boundary box for the floor
+
+    platform = PIXI.Sprite(PIXI.BaseTexture.WHITE); // Creates new platform PIXI sprite
+    platform.width = 320; // Background image is 320px long
+    platform.height = 20;
+    platform.alpha = 0; // Set the alpha (transparency) to make it clear
+
+    platform.x = app.screen.width / 2 - platform.width / 2; 
+    platform.y = app.screen.height - 144; // Background image where the platform is starts at 144px from the top
+
+    app.stage.addChild(platform); // Adds the platform to the stage
+}
+
+// --- States ---
 
 function ChangeState(newState) {
     isRunning = false;
@@ -278,7 +308,8 @@ function SetupDeath() {
 
 }
 
-// Reset the game
+// --- Reset the game ---
+
 function Reset() {
 
 
