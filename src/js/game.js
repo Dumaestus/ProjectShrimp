@@ -4,7 +4,7 @@
 const screenWidth = 320;
 const screenHeight = 180;
 
-var canRun = true;
+var canRun = false;
 var elapsed = 0.0;
 
 const STATE = {
@@ -17,6 +17,7 @@ var currentState = STATE.TITLE;
 var app;
 var player;
 var background;
+var titleScreen;
 
 
 // --- Begin game ---
@@ -39,18 +40,8 @@ function Init() {
     // Add the PIXI canvas to the HTML body
     document.body.appendChild(app.view);
 
-    // Initialize background
-    background = PIXI.Sprite.from('images/game_background.png');
-    app.stage.addChild(background);
-
-    // Initialize player
-    // TODO: Animate player
-    player = PIXI.Sprite.from('images/player/player_right1.png');
-    player.x = app.screen.width / 2;
-    player.y = app.screen.height / 2;
-
-    app.stage.addChild(player);
-
+    canRun = Setup(currentState);
+    //canRun = Setup(STATE.GAMEPLAY); // For testing; uncomment the above for real
 }
 
 function GameLoop() {
@@ -63,8 +54,16 @@ function GameLoop() {
             case true:
                 Update();
                 //Draw();
+                break;
             
             case false:
+                break;
+
+            // Runs ONLY if no other case is valid
+            default:
+                console.log(elapsed + ": GameLoop() out of bounds.");
+                console.log(elapsed + ": currentState: " + currentState);
+                canRun = false;
                 break;
 
         }
@@ -76,17 +75,27 @@ function GameLoop() {
 // Runs every frame
 function Update() {
     switch(currentState) {
-        
         case STATE.TITLE:
+            //console.log("case STATE.TITLE");
             UpdateTitle();
+            break;
 
         case STATE.GAMEPLAY:
             UpdateGameplay();
+            break;
                 
         case STATE.DEATH:
             UpdateDeath();
-                
+            break;
+        
+        default:
+            console.log("test")
+            console.log(elapsed + ": Update() out of bounds.");
+            console.log(elapsed + ": currentState: " + currentState);
+            canRun = false;
+            break;
     }
+    //console.log("test");
 }
 
 // Put graphics updates here
@@ -97,6 +106,7 @@ function Update() {
 
 function UpdateTitle() {
     // Write title screen code here
+    ChangeState(STATE.GAMEPLAY);
 
 }
 
@@ -122,16 +132,37 @@ function Setup(currentState) {
     switch(currentState) {
         
         case STATE.TITLE:
+            console.log(elapsed + ": Setup(STATE.TITLE) complete!");
             break;
 
         case STATE.GAMEPLAY: {
+            // Initialize background
+            background = PIXI.Sprite.from('images/game_background.png');
+            app.stage.addChild(background);
+
+            // Initialize player
+            // TODO: Animate player
+            player = PIXI.Sprite.from('images/player/player_right1.png');
+            player.x = app.screen.width / 2;
+            player.y = app.screen.height / 2;
+
+            app.stage.addChild(player);
+
+            console.log(elapsed + ": Setup(STATE.GAMEPLAY) complete!");
             break;
         }
 
         case STATE.DEATH: {
+            console.log(elapsed + ": Setup(STATE.DEATH) complete!");
             break;
 
         }
+
+        default:
+            console.log(elapsed + ": Setup() out of bounds.");
+            console.log(elapsed + ": currentState: " + currentState);
+            canRun = false;
+            break;
     }
     return true;
 }
