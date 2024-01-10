@@ -21,9 +21,12 @@ var titleScreen;
 
 var input;
 
+// --- Player Movement Vector Variables ---
 let playerVelocity = { x: 0, y: 0 };
 const playerSpeed = 5;
 const deceleration = 0.1; 
+const jumpVelocity = 30;
+const gravity = -10;
 
 // --- Begin game ---
 Init()
@@ -38,37 +41,8 @@ function Init() {
         height: screenHeight
     });
     
-    window.addEventListener(
-        "keydown",
-        (event) => {
-          if (event.defaultPrevented) {
-            return; // Do nothing if event already handled
-          }
-      
-          switch (event.code) {
-            case "KeySpace":
-            case "Space":
-              // Handle "jump"
-
-              StartGame();
-              //updatePosition(moveRate);
-              jump();
-              break;
-            case "KeyA":
-            case "ArrowLeft":
-              // Move Left
-              console.log('a');
-              moveLeft();
-              break;
-            case "KeyD":
-            case "ArrowRight":
-              // Move Right
-              moveRight();
-              break;
-            }
-          },
-          true,
-        );
+    // Reads if the keys are pressed from the handleKeys() function
+    window.addEventListener("keydown", handleKeys, true);
         
     // Sets scale mode to nearest
     PIXI.BaseTexture.defaultOptions.scaleMode = 0;
@@ -168,6 +142,44 @@ function UpdateGameplay(delta) {
 
 }
 
+function createStage() { // Creates stage that player can step on
+    // Eventually make it so that it 
+}
+
+// --- Player Key Presses ---
+
+function handleKeys() {
+    {
+        if (event.defaultPrevented) {
+          return; // Do nothing if event already handled
+        }
+    
+        switch (event.code) {
+          case "KeySpace":
+          case "Space":
+            // Handle "jump"
+
+            StartGame();
+            //updatePosition(moveRate);
+            jump();
+            break;
+          case "KeyA":
+          case "ArrowLeft":
+            // Move Left
+            console.log('a');
+            moveLeft();
+            break;
+          case "KeyD":
+          case "ArrowRight":
+            // Move Right
+            moveRight();
+            break;
+          }
+    }
+}
+
+// --- Player Movement Stuff ---
+
 function updatePlayerMovement() {
     // Decelerate the player when no keys are pressed
     if (!app.keyboardManager.isKeyDown(PIXI.KeyboardManager.KEYS.LEFT) && !app.keyboardManager.isKeyDown(PIXI.KeyboardManager.KEYS.RIGHT)) {
@@ -236,6 +248,8 @@ function Setup(currentState) {
     }
     return true;
 }
+
+// --- Game Screens ---
 
 function SetupTitle() {
     titleScreen = PIXI.Sprite.from('images/title_placeholder.png');
