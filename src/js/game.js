@@ -14,7 +14,6 @@ document.body.appendChild(app.view)
 const background = PIXI.Sprite.from('images/game_background.png'); // Initializes game background image
 const player = PIXI.Sprite.from('images/player/player_right1.png') // Initializes player character image
 
-background.scale.set(2,2)
 app.stage.addChild(background)
 
 app.stage.addChild(player)
@@ -24,4 +23,3 @@ player.anchor.set(0.5) // center the player's anchor point
 // Moves the sprite to the center of the screen
 player.x = app.screen.width / 2 
 player.y = app.screen.height / 2
-player.scale.set(2,2)
