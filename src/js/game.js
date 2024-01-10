@@ -135,6 +135,7 @@ function UpdateTitle(delta) {
 
 function UpdateGameplay(delta) {
     updatePlayerMovement(delta); // Movement additions to x and y velocity
+    console.log(fallCount);
 }
 
 // --- Player Key Presses ---
@@ -176,7 +177,9 @@ function updatePlayerMovement(delta) {
     player.x += playerVelocity.x * playerSpeed * delta;
 
     doGravity(delta);
-
+    if (isOnPlatform) {
+        player.y = 0;
+    }
 }
 
 function moveLeft() {
@@ -189,6 +192,9 @@ function moveRight() {
 
 function jump() {
     // PSEUDO CODE: If the jump button is pressed and the player is on the platform, add jumpVelocity to the playerVelocity.y
+    if (isOnPlatform(player, platform)) {
+        player.y += jumpVelocity;
+    }
 }
 
 function isOnPlatform(player, platform) { // Returns true if player is on top.
@@ -205,11 +211,14 @@ function doGravity(delta) {
     player.y += gravity;
 }
 
-// function getFallCount(delta) {
-//     if isOnPlatform(player, platform) == true {
-//         return 0;
-//     }
-// }
+function updateFallCount(delta) {
+    if (isOnPlatform(player, platform)) {
+        fallCount += delta;
+    }
+    else {
+        fallCount = 0;
+    }
+}
 
 function UpdateDeath(delta) {
     // Write death screen code here
