@@ -19,6 +19,8 @@ var player;
 var background;
 var titleScreen;
 
+var input;
+
 
 // --- Begin game ---
 Init()
@@ -106,7 +108,8 @@ function Update() {
 
 function UpdateTitle() {
     // Write title screen code here
-    ChangeState(STATE.GAMEPLAY);
+
+    //Object.onkeydown = ChangeState(STATE.GAMEPLAY);
 
 }
 
@@ -132,6 +135,9 @@ function Setup(currentState) {
     switch(currentState) {
         
         case STATE.TITLE:
+            titleScreen = PIXI.Sprite.from('images/title_placeholder.png');
+            app.stage.addChild(titleScreen);
+
             console.log(elapsed + ": Setup(STATE.TITLE) complete!");
             break;
 
