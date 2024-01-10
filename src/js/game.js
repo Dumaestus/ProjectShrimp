@@ -8,23 +8,19 @@ const app = new PIXI.Application({
 PIXI.BaseTexture.defaultOptions.scaleMode = 0;
 
 // Add the PIXI canvas to the HTML body
-document.body.appendChild(app.view);
+document.body.appendChild(app.view)
 
-const background = PIXI.Sprite.from('images/game_background.png');
-background.scale.set(2,2);
-app.stage.addChild(background);
+const background = PIXI.Sprite.from('images/game_background.png'); // Initializes game background image
+const player = PIXI.Sprite.from('images/player/player_right1.png') // Initializes player character image
 
-// Write player to screen
-// const cat = PIXI.Sprite.from('images/player/')
+background.scale.set(2,2)
+app.stage.addChild(background)
 
-// Load a sprite image by assigning 'PLAYER' to its resource (png)
-/*
-app.loader.add('PLAYER', 'images/testCharacter.png').load((loader, resources) => {
-    const PLAYER = new PIXI.Sprite(resources.PLAYER.texture);
+app.stage.addChild(player)
 
-    PLAYER.anchor.set(0.5);
-    PLAYER.x = app.renderer.width / 2;
-    PLAYER.y = app.renderer.height / 2;
+player.anchor.set(0.5) // center the player's anchor point
 
-    app.stage.addChild(PLAYER);
-}); */
+// Moves the sprite to the center of the screen
+player.x = app.screen.width / 2 
+player.y = app.screen.height / 2
+player.scale.set(2,2)
