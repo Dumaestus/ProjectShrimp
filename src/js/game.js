@@ -1,23 +1,33 @@
 // Game code
 
+// --- Variables ---
 const screenWidth = 320;
 const screenHeight = 180;
+
+var canRun = true;
+var elapsed = 0.0;
+
 const STATE = {
     TITLE: 0,
     GAMEPLAY: 1,
     DEATH: 2
 }
-let currentState = STATE.TITLE;
+var currentState = STATE.TITLE;
 
-// Begin game
+var app;
+var player;
+var background;
 
+
+// --- Begin game ---
 Init()
-GameLoop(currentState)
+GameLoop()
 
 
+// --- Functions ---
 function Init() {
     // Create PIXI Application
-    const app = new PIXI.Application({
+    app = new PIXI.Application({
         width: screenWidth,
         height: screenHeight
     });
@@ -29,12 +39,13 @@ function Init() {
     // Add the PIXI canvas to the HTML body
     document.body.appendChild(app.view);
 
-    const background = PIXI.Sprite.from('images/game_background.png');
-    //background.scale.set(2,2);
+    // Initialize background
+    background = PIXI.Sprite.from('images/game_background.png');
     app.stage.addChild(background);
 
-    const player = PIXI.Sprite.from('images/player/player_right1.png');
-    //player.scale.set(2,2);
+    // Initialize player
+    // TODO: Animate player
+    player = PIXI.Sprite.from('images/player/player_right1.png');
     player.x = app.screen.width / 2;
     player.y = app.screen.height / 2;
 
@@ -42,18 +53,26 @@ function Init() {
 
 }
 
-function GameLoop(state) {
-    //console.log(state);
-
-    switch(state) {
-        case STATE.TITLE:
-            break;
-
-        case STATE.GAMEPLAY:
-            break;
-
-        case STATE.DEATH:
-            break;
-            
-    }
+function GameLoop() {
+    app.ticker.add((delta) => {
+        elapsed += delta;
+        //console.log(elapsed)
+        switch(canRun) {
+            case true:
+                Update()
+                Draw()
+        }
+    });
 }
+
+function Update() {
+
+
+
+}
+
+function Draw() {
+
+
+}
+
