@@ -207,6 +207,10 @@ function jump() {
     // PSEUDO CODE: If the jump button is pressed and the player is on the floor, add jumpVelocity to the playerVelocity.y
 }
 
+function isOnFloor(player, platform) {
+    // PSEUDO CODE: If the player y-axis + the height is greater than or equal to the platform y-axis AND the player y-axis is less than or equal to the platform y-axis + platform height, then return true
+}
+
 function UpdateDeath(delta) {
     // Write death screen code here
 
