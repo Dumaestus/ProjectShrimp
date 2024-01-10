@@ -60,8 +60,8 @@ function GameLoop() {
         
         switch(canRun) {
             case true:
-                Update()
-                Draw()
+                Update();
+                //Draw();
             
             case false:
                 break;
@@ -72,17 +72,43 @@ function GameLoop() {
 }
 
 // Put game logic here
+// Runs every frame
 function Update() {
+    switch(currentState) {
+        case STATE.TITLE:
+            Title();
 
-
-
+        case STATE.GAMEPLAY:
+            Gameplay();
+                
+        case STATE.DEATH:
+            Death();
+                
+    }
 }
 
 // Put graphics updates here
-function Draw() {
+// function Draw() {
+//     // TK: Not sure if we need this function, since sprites ARE the objects
+
+// }
+
+function Title() {
+    // Write title screen code here
+
+}
+
+function Gameplay() {
+    // Write gameplay code here
+
+}
+
+function Death() {
+    // Write death screen code here
 
 
 }
+
 
 // Reset the game
 function Reset() {
