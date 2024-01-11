@@ -1,6 +1,6 @@
 // Game code
 
-import {AnimatedSprite} from './pixi.min.mjs';
+import {AnimatedSprite, Texture} from './pixi.min.mjs';
 
 // --- Variables ---
 const screenWidth = 320;
@@ -137,7 +137,7 @@ function UpdateTitle(delta) {
 
 function UpdateGameplay(delta) {
     updatePlayerMovement(delta); // Movement additions to x and y velocity
-    console.log(fallCount);
+    //console.log(fallCount);
 }
 
 // --- Player Key Presses ---
@@ -159,7 +159,7 @@ function handleKeys(event) {
           // Move Left
             case "KeyA":
             case "ArrowLeft":
-                console.log('a');
+                //console.log('a');
                 moveLeft();
                 break;
 
@@ -176,20 +176,38 @@ function handleKeys(event) {
 
 function updatePlayerMovement(delta) {
     // Player movement from right to left.
-    player.x += playerVelocity.x * playerSpeed * delta;
+    //player.x += playerVelocity.x * playerSpeed * delta;
+    player.x += player.dx * delta;
+    
+    // Player deceleration
+    // player.dx *= player.deceleration;
+    // if (player.dx < 0.01) {
+    //     player.dx = 0;
+    // }
+    lerp(player.dx, player.dx * player.deceleration, 0.1);
 
+    console.log(player.dx);
     doGravity(delta);
     if (isOnPlatform) {
         player.y = 0;
     }
 }
 
+function lerp(a, b, ratio) {
+    return a + ratio * (b - a);
+}
+
 function moveLeft() {
-    playerVelocity.x = -1;
+    //playerVelocity.x = -1;
+    player.dx -= player.acceleration * player.speed;
+    player.direction = -1
+
 }
 
 function moveRight() {
-    playerVelocity.x = 1;
+    //playerVelocity.x = 1;
+    player.dx += player.acceleration * player.speed;
+    player.direction = 1;
 }
 
 function jump() {
@@ -200,7 +218,7 @@ function jump() {
 }
 
 function isOnPlatform(player, platform) { // Returns true if player is on top.
-    // PSEUDO CODE: If the player y-axis + the height is greater than or equal to the platform y-axis AND the player y-axis is less than or equal to the platform y-axis + platform height, then return true
+    // // PSEUDO CODE: If the player y-axis + the height is greater than or equal to the platform y-axis AND the player y-axis is less than or equal to the platform y-axis + platform height, then return true
     if (player.y >= platform.y) {
         return true;
     }
@@ -302,9 +320,30 @@ function SetupGameplay() {
     app.stage.addChild(background);
     
     // Initialize player
-    player = PIXI.Sprite.from('images/player/player_right1.png');
+
+    const playerFrames = [
+        'images/player/player_right1.png',
+        'images/player/player_right2.png'
+    ];
+
+    const playerTextureArray = [];
+
+    for (let i = 0; i < 2; i++)
+    {
+        const texture = Texture.from(playerFrames[i]);
+        playerTextureArray.push(texture);
+    }
+
+    player = new AnimatedSprite(playerTextureArray);
     player.x = app.screen.width / 2;
     player.y = app.screen.height / 2;
+    player.dx = 0; // velocity
+    player.speed = 5.0;
+    player.acceleration = 1.0;
+    player.deceleration = 0.3;
+    player.direction = 1;
+
+    player.animationSpeed = 20;
 
     app.stage.addChild(player);
 }
